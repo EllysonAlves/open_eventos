@@ -52,7 +52,6 @@ Este repositório contém uma aplicação web desenvolvida para facilitar o gere
 |-- promoters/                # Módulo de gerenciamento de promoters
 |-- recepcionistas/           # Módulo de gerenciamento de recepcionistas
 |-- eventos/                  # Módulo de gerenciamento de eventos
-|-- assets/                   # Recursos estáticos (imagens, estilos, scripts)
 |-- README.md                 # Documentação do projeto
 ```
 
@@ -61,7 +60,7 @@ Este repositório contém uma aplicação web desenvolvida para facilitar o gere
 1. **Clone o repositório**:
 
    ```bash
-   git clone https://github.com/seu-usuario/gerenciamento-eventos.git
+   git clone https://github.com/EllysonAlves/open_eventos.git
    cd gerenciamento-eventos
    ```
 
@@ -96,7 +95,4 @@ Este repositório contém uma aplicação web desenvolvida para facilitar o gere
    ```
 4. Abra um Pull Request.
 
-## Licença
-
-Este projeto está licenciado sob a Licença MIT. Consulte o arquivo `LICENSE` para mais detalhes.
 
