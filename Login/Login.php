@@ -106,7 +106,7 @@ class Login
                     $_SESSION['role'] = $dadosAll['role'];
 
                     
-                    header("location: /pages/eventos/");
+                    header("location: /open_eventos/pages/eventos/");
 
                 } else { // senha incorreta
                     echo '<div id="alert">senha incorreta !!</div>';

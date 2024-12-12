@@ -48,5 +48,5 @@ function updateIcon() {
 
 const btnSair = document.querySelector('#btnSair');
 btnSair.addEventListener('click', ()=> {
-    window.location.href = "/login/sair.php";
+    window.location.href = "/open_eventos/login/sair.php";
 })

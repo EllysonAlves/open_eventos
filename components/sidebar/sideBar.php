@@ -10,16 +10,7 @@
         </div>
 
         <ul class="optionsBar">
-            
-                <li class="menuItem">
-                    <a href="#" class="menuOption">
-                        <i class="fa-solid fa-house"></i><h5 class="menuText open2">Home</h5>
-                    </a>
-                </li>
-               
-            <li class="menuBreak">
-                <hr>
-            </li>
+
             <?php if ($_SESSION['role'] === 'user' || $_SESSION['role'] === 'promoters' || $_SESSION['role'] === 'master' || $_SESSION['role'] === 'admin'): ?>
                 <li class="menuItem">
                     <button id="eventosBtn" class="menuOption">
@@ -77,7 +68,6 @@
 
             <div class="userInfo">
                 <div>
-                    <h1><i class="fa-solid fa-exclamation-circle"></i></h1>
                     <p><?php echo $_SESSION['nome'] ?></p>
                 </div>
             </div>
@@ -90,10 +80,10 @@
         </div>
     </nav>
     <script>
-        const adminBtn = document.getElementById('adminBtn').addEventListener('click', () =>{ window.location.href = '/pages/admin';})
-        const eventosBtn = document.getElementById('eventosBtn').addEventListener('click', () =>{ window.location.href = '/pages/eventos';})
-        const promotersBtn = document.getElementById('promotersBtn').addEventListener('click', () =>{ window.location.href = '/pages/promoters';})
-        const clientesBtn = document.getElementById('clientesBtn').addEventListener('click', () =>{ window.location.href = '/pages/clientes';})
-        const relatoriosBtn = document.getElementById('relatoriosBtn').addEventListener('click', () =>{ window.location.href = '/pages/relatorios';})
-        const recepcionistasBtn = document.getElementById('recepcionistasBtn').addEventListener('click', () =>{ window.location.href = '/pages/recepcionistas';})
+        const adminBtn = document.getElementById('adminBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/admin';})
+        const eventosBtn = document.getElementById('eventosBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/eventos';})
+        const promotersBtn = document.getElementById('promotersBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/promoters';})
+        const clientesBtn = document.getElementById('clientesBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/clientes';})
+        const relatoriosBtn = document.getElementById('relatoriosBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/relatorios';})
+        const recepcionistasBtn = document.getElementById('recepcionistasBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/recepcionistas';})
     </script>

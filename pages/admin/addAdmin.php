@@ -134,7 +134,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
 <script>
-    const voltarBtn = document.getElementById('voltarBtn').addEventListener('click', () =>{ window.location.href = '/pages/admin/';})
+    const voltarBtn = document.getElementById('voltarBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/admin/';})
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
