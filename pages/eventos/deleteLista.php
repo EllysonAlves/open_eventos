@@ -2,14 +2,24 @@
 require_once '../../conexao/Conexao.php';
 session_start();
 
+// Verifica se o usuário está logado
 if (!isset($_SESSION['id'])) {
     header("location: ../../login/index.php");
     exit();
 }
 
+// Verifica se o usuário tem permissão (role)
+$permissoesPermitidas = ['admin', 'master', 'promoter'];
+if (!in_array($_SESSION['role'] ?? 'guest', $permissoesPermitidas)) {
+    echo json_encode(["success" => false, "message" => "Erro: Você não tem permissão para excluir listas."]);
+    exit();
+}
+
+// Obtém o ID da lista
 $idLista = $_POST['id_lista'] ?? null;
+
 if (!$idLista) {
-    echo "Erro: Lista não fornecida.";
+    echo json_encode(["success" => false, "message" => "Erro: Lista não fornecida."]);
     exit();
 }
 

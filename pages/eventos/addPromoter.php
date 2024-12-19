@@ -7,7 +7,7 @@ $idPromoter = $_POST['id_promoter'] ?? null;
 
 if ($idEvento && $idPromoter) {
     $conn = Conexao::getConexao();
-    $stmt = $conn->prepare("INSERT INTO evento_promoter (id_evento, id_promoter) VALUES (?, ?)");
+    $stmt = $conn->prepare("INSERT INTO promoters_eventos (id_evento, id_promoter) VALUES (?, ?)");
     $stmt->execute([$idEvento, $idPromoter]);
     echo json_encode(['message' => 'Promoter adicionado com sucesso.']);
 } else {

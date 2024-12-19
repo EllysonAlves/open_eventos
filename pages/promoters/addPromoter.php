@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         Swal.fire({
                             icon: 'success',
                             title: 'Administrador Adicionado!',
-                            text: 'O administrador foi cadastrado com sucesso.',
+                            text: 'O promoter foi cadastrado com sucesso.',
                             confirmButtonText: 'OK'
                         });
                     });
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     Swal.fire({
                         icon: 'error',
                         title: 'Erro ao Adicionar',
-                        text: 'Ocorreu um erro ao tentar cadastrar o administrador. Detalhes: " . $e->getMessage() . "',
+                        text: 'Ocorreu um erro ao tentar cadastrar o promoter. Detalhes: " . $e->getMessage() . "',
                         confirmButtonText: 'OK'
                     });
                 });
@@ -135,7 +135,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </main>
 
 <script>
-    const voltarBtn = document.getElementById('voltarBtn').addEventListener('click', () =>{ window.location.href = '/pages/promoters/';})
+    const voltarBtn = document.getElementById('voltarBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/promoters/';})
 </script>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

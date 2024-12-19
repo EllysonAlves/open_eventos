@@ -1,20 +1,20 @@
 
-    <nav id="menu" class="menu open">
+    <nav id="menu" class="menu">
+        <button class="menu-toggle" id="menuBtn">
+            ☰
+        </button>
         <div class="actionBar">
             <div>
-                <button id="menuBtn">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
-                <h3 class="menuText open2">OPEN EVENTOS</h3>
+                <h3 class="menuText ">OPEN EVENTOS</h3>
             </div>
         </div>
 
         <ul class="optionsBar">
 
-            <?php if ($_SESSION['role'] === 'user' || $_SESSION['role'] === 'promoters' || $_SESSION['role'] === 'master' || $_SESSION['role'] === 'admin'): ?>
+            <?php if ($_SESSION['role'] === 'user' || $_SESSION['role'] === 'promoter' || $_SESSION['role'] === 'master' || $_SESSION['role'] === 'admin' || $_SESSION['role'] === 'recepcionista'): ?>
                 <li class="menuItem">
                     <button id="eventosBtn" class="menuOption">
-                        <i class="fa-solid fa-star"></i><h5 class="menuText open2">Eventos</h5>
+                        <i class="fa-solid fa-star"></i><h5 class="menuText ">Eventos</h5>
                     </button>
                 </li>
             <?php endif; ?>   
@@ -22,7 +22,7 @@
             <?php if ($_SESSION['role'] === 'master' ): ?>
                 <li class="menuItem">
                     <button id="adminBtn" class="menuOption">
-                        <i class="fa-solid fa-user-shield"></i><h5 class="menuText open2">Administradores</h5>
+                        <i class="fa-solid fa-user-shield"></i><h5 class="menuText ">Administradores</h5>
                     </button>
                 </li>
             <?php endif; ?>
@@ -30,28 +30,28 @@
             <?php if ($_SESSION['role'] === 'master' || $_SESSION['role'] === 'admin'): ?>
                 <li class="menuItem">
                     <button id="promotersBtn" class="menuOption">
-                        <i class="fa-brands fa-readme"></i><h5 class="menuText open2">Promoters</h5>
+                        <i class="fa-brands fa-readme"></i><h5 class="menuText ">Promoters</h5>
                     </button>
                 </li>
             <?php endif; ?>   
             <?php if ($_SESSION['role'] === 'master' || $_SESSION['role'] === 'admin'): ?> 
                 <li class="menuItem">
                     <button id="recepcionistasBtn" class="menuOption">
-                        <i class="fa-solid fa-people-arrows"></i><h5 class="menuText open2">Recepcionistas</h5>
+                        <i class="fa-solid fa-people-arrows"></i><h5 class="menuText ">Recepcionistas</h5>
                     </button>
                 </li>
             <?php endif; ?>   
             <?php if ($_SESSION['role'] === 'promoters' || $_SESSION['role'] === 'master' || $_SESSION['role'] === 'admin'): ?>    
                 <li class="menuItem">
                     <button id="clientesBtn" class="menuOption">
-                        <i class="fa-solid fa-users"></i><h5 class="menuText open2">Clientes</h5>
+                        <i class="fa-solid fa-users"></i><h5 class="menuText ">Clientes</h5>
                     </button>
                 </li>
             <?php endif; ?>   
             <?php if ($_SESSION['role'] === 'admin' || $_SESSION['role'] === 'master' || $_SESSION['role'] === 'admin'): ?>  
                 <li class="menuItem">
                     <button id="relatoriosBtn" class="menuOption">
-                        <i class="fa-regular fa-folder-open"></i><h5 class="menuText open2">Relatorios</h5>
+                        <i class="fa-regular fa-folder-open"></i><h5 class="menuText ">Relatorios</h5>
                     </button>
                 </li>
             <?php endif; ?>
@@ -62,13 +62,13 @@
                 <div>
                     <img src="https://i.imgur.com/ZTs0AKF.png" alt="image">
                 </div>
-                <h5 class="username menuText open2"><?php echo $_SESSION['nome'] ?></h5>
-                <p id="btnSair" class="menuText open2"><i class="fa-solid fa-chevron-right"></i></p>
+                <h5 class="username menuText "><?php echo $_SESSION['nome'] ?></h5>
+                <p id="btnSair" class="menuText "><i class="fa-solid fa-chevron-right"></i></p>
             </a>
 
             <div class="userInfo">
                 <div>
-                    <p><?php echo $_SESSION['nome'] ?></p>
+                    <p><?php echo $_SESSION['role'] ?></p>
                 </div>
             </div>
         </div>
@@ -80,10 +80,50 @@
         </div>
     </nav>
     <script>
-        const adminBtn = document.getElementById('adminBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/admin';})
-        const eventosBtn = document.getElementById('eventosBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/eventos';})
-        const promotersBtn = document.getElementById('promotersBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/promoters';})
-        const clientesBtn = document.getElementById('clientesBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/clientes';})
-        const relatoriosBtn = document.getElementById('relatoriosBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/relatorios';})
-        const recepcionistasBtn = document.getElementById('recepcionistasBtn').addEventListener('click', () =>{ window.location.href = '/open_eventos/pages/recepcionistas';})
+        document.addEventListener('DOMContentLoaded', () => {
+    const adminBtn = document.getElementById('adminBtn');
+    const eventosBtn = document.getElementById('eventosBtn');
+    const promotersBtn = document.getElementById('promotersBtn');
+    const clientesBtn = document.getElementById('clientesBtn');
+    const relatoriosBtn = document.getElementById('relatoriosBtn');
+    const recepcionistasBtn = document.getElementById('recepcionistasBtn');
+
+    // Adiciona listener apenas se o botão existir no DOM
+    if (adminBtn) {
+        adminBtn.addEventListener('click', () => {
+            window.location.href = '/open_eventos/pages/admin';
+        });
+    }
+
+    if (eventosBtn) {
+        eventosBtn.addEventListener('click', () => {
+            window.location.href = '/open_eventos/pages/eventos';
+        });
+    }
+
+    if (promotersBtn) {
+        promotersBtn.addEventListener('click', () => {
+            window.location.href = '/open_eventos/pages/promoters';
+        });
+    }
+
+    if (clientesBtn) {
+        clientesBtn.addEventListener('click', () => {
+            window.location.href = '/open_eventos/pages/clientes';
+        });
+    }
+
+    if (relatoriosBtn) {
+        relatoriosBtn.addEventListener('click', () => {
+            window.location.href = '/open_eventos/pages/relatorios';
+        });
+    }
+
+    if (recepcionistasBtn) {
+        recepcionistasBtn.addEventListener('click', () => {
+            window.location.href = '/open_eventos/pages/recepcionistas';
+        });
+    }
+});
+
     </script>

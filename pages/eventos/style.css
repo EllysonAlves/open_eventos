@@ -1,19 +1,18 @@
-
-.pesquisa{
+.pesquisa {
     width: 400px;
     display: flex;
     justify-content: center;
     border: 2px solid #0bb5d5;
     border-radius: 10px;
 }
-.pesquisa input{
+.pesquisa input {
     padding: 8px;
     border: none;
     width: 400px;
     border-radius: 0 8px 8px 0;
 }
 
-.pesquisa i{
+.pesquisa i {
     display: flex;
     align-items: center;
     background-color: white;
@@ -21,17 +20,19 @@
     padding: 5px;
     border-radius: 8px 0 0 8px;
 }
-i.dark{
+
+i.dark {
     background-color: white;
 }
-.topo{
+
+.topo {
     width: 100%;
     display: flex;
     justify-content: space-around;
     align-items: center;
     margin-top: 30px;
 }
-.topo button{
+.topo button {
     width: 250px;
     padding: 10px;
     border: none;
@@ -39,17 +40,18 @@ i.dark{
     border-radius: 8px;
     color: white;
 }
-.topo button:hover{
+.topo button:hover {
     background-color: #09849c;
     cursor: pointer;
 }
 
-.meio{
+.meio {
     display: flex;
     width: 100%;
     margin-top: 30px;
 }
-.listaAdmin{
+
+.listaAdmin {
     width: 70%;
     min-height: 100vh;
     display: flex;
@@ -57,24 +59,26 @@ i.dark{
     gap: 5px;
 }
 .listaAdmin.empty {
-    align-items: center; /* Centraliza os itens quando vazio */
-    justify-content: center; /* Opcional, centraliza verticalmente */
-    min-height: 200px; /* Para garantir que o contêiner ocupe espaço suficiente */
-    text-align: center; /* Centraliza o texto */
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    text-align: center;
 }
-.listaAdmin button.voltarBtn{
+
+.listaAdmin button.voltarBtn {
     padding: 10px;
     width: 230px;
-    border: 2px solid #0bb5d5 ;
+    border: 2px solid #0bb5d5;
     border-radius: 8px;
     color: black;
     margin-top: 30px;
 }
-.listaAdmin button.voltarBtn:hover{
+.listaAdmin button.voltarBtn:hover {
     background-color: #0bb5d5;
     color: white;
 }
-.info{
+
+.info {
     width: 40%;
     height: 200px;
     border-left: 3px solid #00B5B8;
@@ -84,12 +88,13 @@ i.dark{
     justify-content: center;
     gap: 10px;
 }
-.info h2{
+.info h2 {
     color: #09849c;
 }
-.info p{
+.info p {
     font-size: small;
 }
+
 .cardAdmin {
     display: flex;
     flex-direction: column;
@@ -119,34 +124,33 @@ i.dark{
 .cardAdmin .actions button:hover {
     color: #000;
 }
-.cardAdmin p{
+
+.cardAdmin p {
     font-size: small;
 }
 
 /* Add admin */
-
-.listaAdmin form{
+.listaAdmin form {
     width: 100%;
-    margin: 0 auto; /* Centraliza o formulário */
+    margin: 0 auto;
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem; /* Espaço entre as linhas */
+    gap: 1rem;
 }
 
-
-.listaAdmin form input{
+.listaAdmin form input {
     padding: 10px;
     border: 1px solid gray;
     border-radius: 8px;
     width: 100%;
 }
-.listaAdmin form label{
+.listaAdmin form label {
     display: block;
     font-weight: bold;
     margin-bottom: 0.5rem;
 }
-.listaAdmin form button{
+.listaAdmin form button {
     padding: 0.75rem;
     background-color: #007bff;
     color: white;
@@ -158,15 +162,15 @@ i.dark{
 .listaAdmin form button:hover {
     background-color: #0056b3;
 }
+
 .form-row {
     display: flex;
-    gap: 1rem; /* Espaço entre as colunas */
+    gap: 1rem;
 }
 
 .form-row > div {
-    flex: 1; /* Faz as divs ocuparem tamanhos iguais */
+    flex: 1;
 }
-
 
 .btn-add {
     background-color: #28a745;
@@ -180,12 +184,20 @@ i.dark{
 .btn-add:hover {
     background-color: #218838;
 }
+
 .listaEventos ul {
     list-style-type: none;
 }
 
 .listaEventos li {
     margin: 10px 0;
+}
+
+.listaEventos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn-delete-lista {
@@ -299,29 +311,384 @@ i.dark{
     background-color: #c82333;
 }
 
+.clientes-lista li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    background-color: #f9f9f9;
+}
 
-/* Responsividade */
+.clientes-lista li .btn-delete-cliente {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.clientes-lista li .btn-delete-cliente:hover {
+    color: #c82333;
+}
+
+
+/* cardEvento */
+
+.cardEvento {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px 0;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    max-width: 350px;
+}
+
+.cardEvento:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.cardEvento h2 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #09849c;
+    margin-bottom: 10px;
+}
+
+.cardEvento p {
+    font-size: 14px;
+    color: #555;
+    margin: 5px 0;
+}
+
+.cardEvento .actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.cardEvento .actions button {
+    background-color: transparent;
+    border: 2px solid #0bb5d5;
+    color: #0bb5d5;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cardEvento .actions button:hover {
+    background-color: #0bb5d5;
+    color: white;
+}
+
+.cardEvento .actions .btn-status {
+    background-color: #f1f1f1;
+    color: #555;
+    padding: 8px 20px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.cardEvento .actions .btn-status:hover {
+    background-color: #09849c;
+    color: white;
+}
+
+.cardEvento .actions .btn-lists {
+    background-color: #0bb5d5;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 14px;
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+
+.cardEvento .actions .btn-lists:hover {
+    background-color: #09849c;
+}
+
+.cardEvento .card-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.cardEvento .card-footer .date-info {
+    font-size: 12px;
+    color: #888;
+}
+
+
+/* Estilos básicos */
+.status-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    flex-wrap: wrap; /* Permite quebrar linhas em telas pequenas */
+}
+
+/* Label do status */
+.status-label {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 5px;
+    white-space: nowrap; /* Evita quebra de texto */
+}
+
+/* Cores dinâmicas para o status */
+.status-label[data-status="confirmado"] {
+    color: #28a745;
+    background-color: #e9f9ec;
+}
+
+.status-label[data-status="cancelado"] {
+    color: #dc3545;
+    background-color: #fce4e6;
+}
+
+.status-label[data-status="pendente"] {
+    color: #ffc107;
+    background-color: #fff9e6;
+}
+
+/* Botão */
+.btn-status-cliente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 8px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    flex: 1; /* Faz o botão ocupar mais espaço em telas pequenas */
+}
+
+.btn-status-cliente:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+/* Ícones no botão */
+.status-icon {
+    display: inline-block;
+    font-size: 16px;
+}
+
+/* Cores dinâmicas do botão */
+.btn-status-cliente[data-status="confirmado"] {
+    background-color: #28a745;
+    color: white;
+}
+
+.btn-status-cliente[data-status="cancelado"] {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-status-cliente[data-status="pendente"] {
+    background-color: #ffc107;
+    color: white;
+}
+
+a.btn-lists.disabled {
+    pointer-events: none;
+    background-color: #ccc!important; /* Cor de botão desabilitado */
+    color: #666!important;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.public-list-option {
+    margin-top: 15px;
+}
+
+.public-list-option .info-text {
+    font-size: 0.7rem;
+    color: #555555c2;
+    margin-top: 5px;
+}
+
+.public-list-option .info-text a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.public-list-option .info-text a:hover {
+    text-decoration: underline;
+}
+
+#formAddLista{
+    width: 100%;
+    padding: 50px;
+    justify-content: center;
+}
+#formAddLista form{
+    width: 50%;
+    background-color: #adadad44;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+#formAddLista form input{
+    padding: 5px;
+}
+
+
+
+/* RESPONSIVIDADE */
+/* Telas menores que 768px */
 @media (max-width: 768px) {
-    .form-row {
-        flex-direction: column; /* Empilha as divs no mobile */
+    .status-actions {
+        flex-direction: column; /* Empilha os elementos verticalmente */
+        align-items: stretch; /* Faz os itens ocuparem 100% da largura */
     }
-    .meio{
-        flex-direction: column-reverse;
+
+    .status-label {
+        text-align: center; /* Centraliza o texto */
+        margin-bottom: 10px; /* Adiciona espaço entre o label e o botão */
+        font-size: 14px; /* Reduz tamanho do texto em telas pequenas */
     }
-    .info{
-        width: 80%;
-        border-top: 3px solid #00B5B8;
+
+    .btn-status-cliente {
+        padding: 10px; /* Aumenta a área clicável */
+        font-size: 16px; /* Tamanho do texto maior para dispositivos móveis */
+        flex: unset; /* Reseta o comportamento flex do botão */
+        width: 100%; /* Botão ocupa toda a largura */
+    }
+
+}
+
+
+
+/* Telas menores que 480px */
+@media (max-width: 480px) {
+    .status-actions {
+        padding: 8px; /* Reduz o padding geral */
+    }
+
+    .status-label {
+        font-size: 12px; /* Reduz ainda mais o texto */
+        padding: 4px 8px; /* Padding menor */
+    }
+
+    .btn-status-cliente {
+        font-size: 14px; /* Ajusta o tamanho do botão */
+        padding: 8px; /* Área clicável ainda suficiente */
+    }
+}
+
+
+
+/* Responsividade Geral */
+@media (max-width: 1024px) {
+    .pesquisa {
+        max-width: 90%; /* Substitui largura fixa por largura relativa */
+    }
+    .topo {
+        flex-direction: column;
+        gap: 15px; /* Adiciona espaço entre os elementos */
+    }
+    .topo button {
+        width: 100%; /* Botões ocupam toda a largura disponível */
+    }
+    .meio {
+        flex-direction: column-reverse; /* Ajusta o layout para dispositivos menores */
+    }
+    .info {
+        width: 100%; /* Ocupa toda a largura da tela */
+        border-top: 3px solid #00B5B8; /* Ajuste estético */
         border-left: none;
+        padding: 15px;
+    }
+}
+
+/* Telas menores que 768px */
+@media (max-width: 768px) {
+    .main{
+        width: 100%;
+        padding-top: 100px;
+    }
+    .pesquisa {
+        gap: 10px; /* Adiciona espaço entre o input e o ícone */
+    }
+    .pesquisa input {
+
+        border-radius: 8px; /* Ajusta as bordas */
+    }
+    .info {
         height: auto;
+        padding: 20px;
     }
-    .listaAdmin{
-        min-height: auto;
-        margin-bottom: 20px;
+    .cardEvento {
+        width: 90%;
+        padding: 15px;
     }
+    .cardEvento h2 {
+        font-size: 16px;
+    }
+    .cardEvento p {
+        font-size: 13px;
+    }
+    .cardEvento .actions {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+    .cardEvento .actions button,
+    .cardEvento .actions .btn-status,
+    .cardEvento .actions .btn-lists {
+        width: 100%; /* Botões ocupam toda a largura */
+        font-size: 13px;
+    }
+    #formAddLista{
+        padding: 5px;
+    }
+    #formAddLista form{
+        width: 100%;
+    }
+}
 
-    .lista-container {
-        grid-template-columns: 1fr;
+/* Telas menores que 480px */
+@media (max-width: 480px) {
+    .topo {
+        align-items: center;
+        gap: 20px;
     }
-
+    .info {
+        padding: 10px;
+        font-size: 14px;
+    }
+    .cardAdmin p,
+    .cardEvento p {
+        font-size: 12px;
+    }
+    .cardEvento .actions button,
+    .cardEvento .actions .btn-status,
+    .cardEvento .actions .btn-lists {
+        font-size: 12px;
+    }
 }
 

@@ -40,6 +40,10 @@ h1, h2, h3, h4, h5, h6.dark {
     color: var(--bg-black20);
 }
 
+div.dark{
+    background-color: #000;
+}
+
 
 body { overflow: auto; }
     
@@ -52,7 +56,6 @@ body { overflow: auto; }
 
 .menu {
     position: fixed;
-
     width: 60px;
     height: 100vh;
     background-color: var(--bg-black50);
@@ -60,10 +63,10 @@ body { overflow: auto; }
     top: 0;
     bottom: 0;
     left: 10px;
-    margin: auto;
     border-radius: .8rem;
     transition: .3s ease .15s;
     font-family: sans-serif;
+    padding-top: 50px;
 }
 
     .menu.open { width: 240px; }
@@ -301,10 +304,12 @@ body { overflow: auto; }
     width: calc(100% - 60px);
     margin-left: 60px;
     transition: margin-left 0.5s ease, width 0.5s ease;
+    height: 100vh;
 }
 .menu.open ~ .main {
     margin-left: 240px; /* Espaço para o sidebar aberto */
     width: calc(100% - 240px);
+    height: 100vh;
 }
 
 
@@ -326,4 +331,59 @@ body.light .main h1, body.light .main p {
 
 body.dark .main h1, body.dark .main p {
     color: #fff;
+}
+
+/* Estilo para o botão hambúrguer */
+.menu-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background-color: var(--bg-black50);
+    color: var(--bg-black100);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    font-size: 1.5rem;
+    z-index: 1000; /* Sempre visível acima dos outros elementos */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-toggle:hover {
+    background-color: var(--bg-black20);
+}
+
+
+
+@media (min-width: 769px) {
+    
+}
+
+
+/* Oculta o sidebar em telas menores por padrão */
+@media (max-width: 768px) {
+    .menu {
+        width: 0;
+        left: 0;
+        overflow: hidden;
+        transition: width 0.3s ease;
+        border-radius: none;
+    }
+    .menu.open {
+        width: 100%; /* Largura do sidebar quando aberto */
+        left: 0;
+        border-radius: none;
+    }
+    .main {
+        margin-left: 0; /* Corrige o deslocamento */
+    }
+    .menu.open ~ .main {
+        margin-left: 240px; /* Move o conteúdo ao abrir o menu */
+    }
+    .menu .optionsBar .menuItem .menuOption i {
+        display: none; /* Esconde o texto no modo fechado */
+    }
+    .menu.open .optionsBar .menuItem .menuOption i {
+        display: block; /* Mostra o texto no modo aberto */
+    }
 }

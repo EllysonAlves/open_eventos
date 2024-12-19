@@ -3,6 +3,7 @@ require_once '../../conexao/Conexao.php';
 
 session_start();
 
+
 if (!isset($_SESSION['id'])) {
     header("location: ../../login/index.php");
     exit();
@@ -24,8 +25,8 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../components/sidebar/style.css?v=3">
-    <link rel="stylesheet" href="style.css?v=4">
+    <link rel="stylesheet" href="../../components/sidebar/style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=10">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
@@ -42,7 +43,9 @@ try {
         </div>
 
         <div class="topo">
+        <?php if (!in_array($_SESSION['role'] ?? 'guest', ['recepcionista','promoter','user'])): ?>
             <button id="addEvento">Adicionar Evento</button>
+        <?php endif; ?>
             <div class="pesquisa">
                 <i class="fa-solid fa-magnifying-glass"></i>
                 <input name="pesquisaEvento" id="pesquisaEvento" type="text" placeholder="Pesquisar por eventos">
@@ -52,7 +55,7 @@ try {
             <div class="listaEventos <?= empty($eventos) ? 'empty' : ''; ?>" id="listaEventos">
                 <?php
                 if (empty($eventos)) {
-                    echo '<img src="assets/calendar.png" alt="Sem eventos" style="width: 150px; height: 150px;">
+                    echo '<img src="assets/evento.png" alt="Sem eventos" style="width: 150px; height: 150px;">
                     <h2>Não há eventos cadastrados no momento.</h2>
                     <p class="mensagem-vazia" id="mensagemEvento" style="color: gray; font-style: italic; text-align: center;" aria-live="polite">
                         Adicione os eventos que deseja gerenciar.
@@ -60,48 +63,69 @@ try {
                 } else {
                     
                     ?>
-                    <?php foreach ($eventos as $evento) {
-    $buttonColor = $evento['status'] == 1 ? 'green' : 'gray';
-    $buttonText = $evento['status'] == 1 ? 'Aberto' : 'Finalizado';
-    ?>
-    <div class="cardEvento">
-        <h2><?= htmlspecialchars($evento['nome_evento']); ?></h2>
-        <p>Início: <?= htmlspecialchars($evento['data_hora_inicio']); ?></p>
-        <p>Término: <?= htmlspecialchars($evento['data_hora_termino']); ?></p>
-        <p>Local: <?= htmlspecialchars($evento['local_evento']); ?></p>
-        <p><?= htmlspecialchars($evento['descricao']); ?></p>
-        <div class="actions">
-            <button class="btn-edit" data-id="<?= $evento['id_evento']; ?>" title="Editar">
-                <i class="fa-solid fa-pen"></i>
-            </button>
-            <button class="btn-delete" data-id="<?= $evento['id_evento']; ?>" title="Excluir">
-                <i class="fa-solid fa-trash"></i>
-            </button>
-            <button class="btn-status" data-id="<?= $evento['id_evento']; ?>" data-status="<?= $evento['status']; ?>" style="background-color: <?= $buttonColor; ?>; color: white;">
-                <?= $buttonText; ?>
-            </button>
-            <a href="gerenciarListas.php?id_evento=<?= $evento['id_evento']; ?>" class="btn-lists" title="Gerenciar Listas">
-                <i class="fa-solid fa-users"></i> Listas
-            </a>
-        </div>
-    </div>
-    <?php
-}
-                }
-                ?>
+                    <?php foreach ($eventos as $evento): ?>
+                    <?php 
+                    $buttonColor = $evento['status'] == 1 ? 'green' : 'gray';
+                    $buttonText = $evento['status'] == 1 ? 'Aberto' : 'Finalizado';
+
+                    // Verifica se o usuário tem permissão para manipular eventos finalizados
+                    $usuarioPodeEditar = in_array($_SESSION['role'] ?? 'guest', ['admin', 'master']);
+                    $desabilitarListas = $evento['status'] == 0 && !$usuarioPodeEditar; // Se evento finalizado e não é admin/master
+                    ?>
+                    <div class="cardEvento">
+                        <h2><?= htmlspecialchars($evento['nome_evento']); ?></h2>
+                        <p>Início: <?= htmlspecialchars($evento['data_hora_inicio']); ?></p>
+                        <p>Término: <?= htmlspecialchars($evento['data_hora_termino']); ?></p>
+                        <p>Local: <?= htmlspecialchars($evento['local_evento']); ?></p>
+                        <p><?php echo $evento['descricao'] ?></p>
+                        <div class="actions">
+                            <?php if (!in_array($_SESSION['role'] ?? 'guest', ['recepcionista','user','promoter'])): ?>
+                                <button class="btn-edit" data-id="<?= $evento['id_evento']; ?>" title="Editar">
+                                    <i class="fa-solid fa-pen"></i>
+                                </button>
+                                <button class="btn-delete" data-id="<?= $evento['id_evento']; ?>" title="Excluir">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            <?php endif; ?>
+                            <button class="btn-status" data-id="<?= $evento['id_evento']; ?>" data-status="<?= $evento['status']; ?>" style="background-color: <?= $buttonColor; ?>; color: white;">
+                                <?= $buttonText; ?>
+                            </button>
+                            <a href="gerenciarListas.php?id_evento=<?= $evento['id_evento']; ?>&status_evento=<?= $evento['status'] ?>" 
+                            class="btn-lists <?= $desabilitarListas ? 'disabled' : ''; ?>" 
+                            title="<?= $desabilitarListas ? 'Somente administradores podem manipular eventos finalizados.' : 'Gerenciar Listas'; ?>" 
+                            <?= $desabilitarListas ? 'tabindex="-1" aria-disabled="true" onclick="return false;"' : ''; ?>>
+                                <i class="fa-solid fa-users"></i> Listas
+                            </a>
+                        </div>
+                    </div>
+                <?php endforeach; } ?>                
             </div>
         </div>
     </main>
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../../components/sidebar/main.js"></script>
+    <script src="../../components/sidebar/main.js?v=2"></script>
 </body>
 </html>
 <script>
-            const addEvento = document.getElementById('addEvento').addEventListener('click', () => { 
-        window.location.href = 'addEvento.php'; 
+    const addEvento = document.getElementById('addEvento');
+
+    if (addEvento) { // Verifica se o elemento existe
+        addEvento.addEventListener('click', () => {
+            window.location.href = 'addEvento.php';
+        });
+    }
+
+    document.querySelectorAll('.btn-edit').forEach(button => {
+    button.addEventListener('click', () => {
+        const eventoId = button.getAttribute('data-id');
+        // Redireciona para a página de edição com o ID do evento
+        window.location.href = `editEvento.php?id_evento=${eventoId}`;
     });
+});
+
+
 
     // Ação de excluir
     document.querySelectorAll('.btn-delete').forEach(button => {
@@ -131,21 +155,42 @@ try {
         });
     });
 
-    // Ação de alterar status
-    document.querySelectorAll('.btn-status').forEach(button => {
-        button.addEventListener('click', () => {
-            const eventoId = button.getAttribute('data-id');
-            const currentStatus = button.getAttribute('data-status');
-            const newStatus = currentStatus == 1 ? 0 : 1;
+    document.addEventListener('DOMContentLoaded', function () {
+        // Delegação de eventos para os botões de status
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('btn-status')) {
+                const button = e.target;
+                const idEvento = button.getAttribute('data-id');
+                const currentStatus = parseInt(button.getAttribute('data-status'));
 
-            $.post('updateStatusEvento.php', { id: eventoId, status: newStatus }, function(response) {
-                if (response.success) {
-                    Swal.fire('Atualizado!', 'O status do evento foi alterado.', 'success');
-                    location.reload();
-                } else {
-                    Swal.fire('Erro!', response.message, 'error');
-                }
-            }, 'json');
+                // Envia requisição AJAX para alternar o status
+                fetch('updateStatusEvento.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({
+                        id_evento: idEvento,
+                        status: currentStatus,
+                    }),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            // Atualiza o botão no DOM com o novo status
+                            const newStatus = data.new_status;
+                            button.setAttribute('data-status', newStatus);
+                            button.style.backgroundColor = newStatus === 1 ? 'green' : 'gray';
+                            button.textContent = newStatus === 1 ? 'Aberto' : 'Finalizado';
+                        } else {
+                            alert(data.message || 'Erro ao atualizar status.');
+                        }
+                    })
+                    .catch(err => {
+                        console.error('Erro na requisição:', err);
+                        alert('Erro ao atualizar status.');
+                    });
+            }
         });
     });
 

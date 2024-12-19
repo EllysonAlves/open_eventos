@@ -1,12 +1,13 @@
 <?php
 require_once '../../conexao/Conexao.php';
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
     $query = trim($_POST['query']); // Texto da pesquisa
     try {
         $conn = Conexao::getConexao();
         $stmt = $conn->prepare(
-            "SELECT id_evento, nome_evento, data_hora_inicio, data_hora_termino, status 
+            "SELECT id_evento, nome_evento, data_hora_inicio, data_hora_termino, local_evento, descricao, status 
              FROM eventos 
              WHERE nome_evento LIKE ? OR local_evento LIKE ?"
         );
@@ -15,19 +16,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
 
         if (count($eventos) > 0) {
             foreach ($eventos as $evento) {
-                // Define o estilo do botão com base no status do evento
-                $buttonClass = $evento['status'] == 'aberto' ? 'btn-aberto' : 'btn-finalizado';
-                $buttonText = $evento['status'] == 'aberto' ? 'Aberto' : 'Finalizado';
+                // Define estilo e texto do botão de status
+                $buttonColor = $evento['status'] == 1 ? 'green' : 'gray';
+                $buttonText = $evento['status'] == 1 ? 'Aberto' : 'Finalizado';
+
+                // Verifica permissão do usuário para manipular eventos finalizados
+                $usuarioPodeEditar = in_array($_SESSION['role'] ?? 'guest', ['admin', 'master']);
+                $desabilitarListas = $evento['status'] == 0 && !$usuarioPodeEditar; // Evento finalizado e não é admin/master
                 ?>
                 <div class="cardEvento">
                     <h2><?= htmlspecialchars($evento['nome_evento']); ?></h2>
                     <p>Início: <?= htmlspecialchars($evento['data_hora_inicio']); ?></p>
                     <p>Término: <?= htmlspecialchars($evento['data_hora_termino']); ?></p>
-                    <p>Status: <?= htmlspecialchars($buttonText); ?></p>
+                    <p>Local: <?= htmlspecialchars($evento['local_evento']); ?></p>
+                    <p><?= htmlspecialchars($evento['descricao']); ?></p>
                     <div class="actions">
-                        <button class="<?= $buttonClass; ?>" data-id="<?= $evento['id_evento']; ?>" data-status="<?= $evento['status']; ?>">
-                            <?= htmlspecialchars($buttonText); ?>
+                        <?php if (!in_array($_SESSION['role'] ?? 'guest', ['recepcionista', 'user', 'promoter'])): ?>
+                            <button class="btn-edit" data-id="<?= $evento['id_evento']; ?>" title="Editar">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button class="btn-delete" data-id="<?= $evento['id_evento']; ?>" title="Excluir">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        <?php endif; ?>
+                        <button class="btn-status" data-id="<?= $evento['id_evento']; ?>" data-status="<?= $evento['status']; ?>" style="background-color: <?= $buttonColor; ?>; color: white;">
+                            <?= $buttonText; ?>
                         </button>
+                        <a href="gerenciarListas.php?id_evento=<?= $evento['id_evento']; ?>&status_evento=<?= $evento['status']; ?>" 
+                           class="btn-lists <?= $desabilitarListas ? 'disabled' : ''; ?>" 
+                           title="<?= $desabilitarListas ? 'Somente administradores podem manipular eventos finalizados.' : 'Gerenciar Listas'; ?>" 
+                           <?= $desabilitarListas ? 'tabindex="-1" aria-disabled="true" onclick="return false;"' : ''; ?>>
+                            <i class="fa-solid fa-users"></i> Listas
+                        </a>
                     </div>
                 </div>
                 <?php
