@@ -146,7 +146,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <div class="form-row">
                     <div>
                         <label for="descricao">Descrição</label>
-                        <textarea name="descricao" id="descricao" placeholder="Descrição do evento"></textarea>
+                        <textarea name="descricao" id="descricao" placeholder="Descrição do evento" >
+                        <p style="text-align: left;">◆ <strong>SAVE THE DATE</strong><br>31 DE MAIO | SEXTA<br><br><strong>LINE OFICIAL</strong>:<br>◆ Músico 1<br>◆ Banda 2<br>◆ Músico 3<br>◆ Banda 4<br><br>►<strong> LOCAL</strong><br>OPEN BEACH<br>Rua José Fernandes Duarte, 96<br>Bairro Santo Antônio<br><br>► <strong>COMO COMPRO MEU INGRESSO?</strong><br>◆ https://www.instagram.com/openbeachsports/ ou com nossos comissários credenciados.<br><br>► <strong>QUAL A IMPROPRIEDADE DO EVENTO?</strong><br>◆ O OPEN BEACH é para maiores de 18 anos.</p>
+                        </textarea>
                     </div>
                 </div>
                 <div class="form-row">

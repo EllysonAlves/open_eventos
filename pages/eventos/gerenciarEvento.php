@@ -58,7 +58,7 @@ try {
             <p><strong>Data de Início:</strong> <?= htmlspecialchars($evento['data_hora_inicio']); ?></p>
             <p><strong>Data de Término:</strong> <?= htmlspecialchars($evento['data_hora_termino']); ?></p>
             <p><strong>Local:</strong> <?= htmlspecialchars($evento['local_evento']); ?></p>
-            <p><strong>Descrição:</strong> <?= htmlspecialchars($evento['descricao']); ?></p>
+            <p><strong>Descrição:</strong> <?php echo $evento['descricao'] ?></p>
         </div>
 
         <div class="listas-gerenciar">

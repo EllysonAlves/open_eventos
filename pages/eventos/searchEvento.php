@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['query'])) {
                     <p>Início: <?= htmlspecialchars($evento['data_hora_inicio']); ?></p>
                     <p>Término: <?= htmlspecialchars($evento['data_hora_termino']); ?></p>
                     <p>Local: <?= htmlspecialchars($evento['local_evento']); ?></p>
-                    <p><?= htmlspecialchars($evento['descricao']); ?></p>
+                    <p><?php echo $evento['descricao'] ?></p>
                     <div class="actions">
                         <?php if (!in_array($_SESSION['role'] ?? 'guest', ['recepcionista', 'user', 'promoter'])): ?>
                             <button class="btn-edit" data-id="<?= $evento['id_evento']; ?>" title="Editar">

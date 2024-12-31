@@ -15,6 +15,7 @@ $statusEvento = $_POST['status_evento'] ?? null;
 $idPromoters = $_POST['id_promoter'] ?? []; // Agora é um array de promoters
 $criadoPor = $_SESSION['id'];
 $publico = $_POST['publica'] ?? null;
+$lenght = $_POST['lenght_lista'] ?? null;
 
 
 // Verifica se o usuário tem permissão (role)
@@ -37,8 +38,8 @@ try {
     $conn = Conexao::getConexao();
 
     // Insere a nova lista no banco de dados
-    $stmt = $conn->prepare("INSERT INTO listas (nome_lista, id_evento, criado_por,publica) VALUES (?, ?, ?,?)");
-    $stmt->execute([$nomeLista, $idEvento, $criadoPor,$publico]);
+    $stmt = $conn->prepare("INSERT INTO listas (nome_lista, id_evento, criado_por,publica,lenght) VALUES (?, ?, ?,?,?)");
+    $stmt->execute([$nomeLista, $idEvento, $criadoPor,$publico,$lenght]);
 
     $eventoId = $conn->lastInsertId(); // Pega o ID do evento recém inserido
 

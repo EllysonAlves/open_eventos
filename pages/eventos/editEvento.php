@@ -32,7 +32,7 @@ try {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -218,6 +218,9 @@ try {
     <script>
         document.getElementById('editEventoForm').addEventListener('submit', function(e) {
             e.preventDefault(); // Impede o envio tradicional do formulário
+
+            // Sincroniza o conteúdo do TinyMCE com o textarea
+            tinymce.triggerSave();
             
             const formData = new FormData(this); // Coleta os dados do formulário
             

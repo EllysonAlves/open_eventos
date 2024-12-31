@@ -26,7 +26,7 @@ try {
     $conn->beginTransaction();
 
     // Verifica se a lista é pública ou se o usuário tem permissão para adicionar
-    $stmt = $conn->prepare("SELECT publica, id_evento FROM listas WHERE id_lista = ?");
+    $stmt = $conn->prepare("SELECT publica, id_evento, length FROM listas WHERE id_lista = ?");
     $stmt->execute([$idLista]);
     $lista = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -37,6 +37,16 @@ try {
 
     if ($role === 'user' && !$lista['publica']) {
         echo "Você não tem permissão para adicionar clientes a esta lista.";
+        exit();
+    }
+
+    // Verifica o número de clientes atuais na lista
+    $stmt = $conn->prepare("SELECT COUNT(*) as total_clientes FROM clientes_listas WHERE id_lista = ?");
+    $stmt->execute([$idLista]);
+    $clientesNaLista = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($clientesNaLista['total_clientes'] >= $lista['length']) {
+        echo "A lista já atingiu o número máximo de clientes permitidos.";
         exit();
     }
 

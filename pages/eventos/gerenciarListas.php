@@ -86,6 +86,10 @@ try {
                     <label for="nome_lista">Nome da Lista:</label>
                     <input type="text" id="nome_lista" name="nome_lista" required>
                 </div>
+                <div>
+                    <label for="nome_lista">Numero maximo de clientes:</label>
+                    <input type="number" id="lenght_lista" name="lenght_lista" required>
+                </div>
                 <div id="select">
                     <label for="promoter">Promoters</label>
                     <select name="id_promoter[]" id="id_promoter" multiple="multiple" required>

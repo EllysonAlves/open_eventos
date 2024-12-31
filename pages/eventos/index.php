@@ -117,82 +117,87 @@ try {
         });
     }
 
-    document.querySelectorAll('.btn-edit').forEach(button => {
-    button.addEventListener('click', () => {
-        const eventoId = button.getAttribute('data-id');
-        // Redireciona para a página de edição com o ID do evento
-        window.location.href = `editEvento.php?id_evento=${eventoId}`;
-    });
-});
+    
 
 
+    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('click', function (e) {
+        const target = e.target.closest('button'); // Captura o botão mais próximo
 
-    // Ação de excluir
-    document.querySelectorAll('.btn-delete').forEach(button => {
-        button.addEventListener('click', () => {
-            const eventoId = button.getAttribute('data-id');
+        if (!target) return; // Sai se não for um botão
+
+        // Evento de DELETE
+        if (target.classList.contains('btn-delete')) {
+            const idEventoDelete = target.getAttribute('data-id');
+
             Swal.fire({
                 title: 'Tem certeza?',
-                text: "Você não poderá desfazer esta ação!",
+                text: 'Você não poderá desfazer esta ação!',
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#d33',
                 cancelButtonColor: '#3085d6',
                 confirmButtonText: 'Sim, excluir!',
-                cancelButtonText: 'Cancelar'
+                cancelButtonText: 'Cancelar',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $.post('deleteEvento.php', { id: eventoId }, function(response) {
-                        if (response.success) {
-                            Swal.fire('Excluído!', 'O evento foi excluído.', 'success');
-                            location.reload();
-                        } else {
-                            Swal.fire('Erro!', response.message, 'error');
-                        }
-                    }, 'json');
+                    $.post(
+                        'deleteEvento.php',
+                        { id: idEventoDelete },
+                        function (response) {
+                            if (response.success) {
+                                Swal.fire('Excluído!', 'O evento foi excluído.', 'success');
+                                location.reload();
+                            } else {
+                                Swal.fire('Erro!', response.message, 'error');
+                            }
+                        },
+                        'json'
+                    );
                 }
             });
-        });
-    });
+        }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        // Delegação de eventos para os botões de status
-        document.addEventListener('click', function (e) {
-            if (e.target.classList.contains('btn-status')) {
-                const button = e.target;
-                const idEvento = button.getAttribute('data-id');
-                const currentStatus = parseInt(button.getAttribute('data-status'));
+        // Evento de EDIT
+        else if (target.classList.contains('btn-edit')) {
+            const idEventoEdit = target.getAttribute('data-id');
+            window.location.href = `editEvento.php?id_evento=${idEventoEdit}`;
+        }
 
-                // Envia requisição AJAX para alternar o status
-                fetch('updateStatusEvento.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: new URLSearchParams({
-                        id_evento: idEvento,
-                        status: currentStatus,
-                    }),
+        // Evento de STATUS
+        else if (target.classList.contains('btn-status')) {
+            const idEvento = target.getAttribute('data-id');
+            const currentStatus = parseInt(target.getAttribute('data-status'));
+
+            fetch('updateStatusEvento.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    id_evento: idEvento,
+                    status: currentStatus,
+                }),
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.success) {
+                        const newStatus = data.new_status;
+                        target.setAttribute('data-status', newStatus);
+                        target.style.backgroundColor = newStatus === 1 ? 'green' : 'gray';
+                        target.textContent = newStatus === 1 ? 'Aberto' : 'Finalizado';
+                    } else {
+                        alert(data.message || 'Erro ao atualizar status.');
+                    }
                 })
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.success) {
-                            // Atualiza o botão no DOM com o novo status
-                            const newStatus = data.new_status;
-                            button.setAttribute('data-status', newStatus);
-                            button.style.backgroundColor = newStatus === 1 ? 'green' : 'gray';
-                            button.textContent = newStatus === 1 ? 'Aberto' : 'Finalizado';
-                        } else {
-                            alert(data.message || 'Erro ao atualizar status.');
-                        }
-                    })
-                    .catch(err => {
-                        console.error('Erro na requisição:', err);
-                        alert('Erro ao atualizar status.');
-                    });
-            }
-        });
+                .catch((err) => {
+                    console.error('Erro na requisição:', err);
+                    alert('Erro ao atualizar status.');
+                });
+        }
     });
+});
+
 
     // Ação de pesquisa via AJAX
     $(document).ready(function () {
